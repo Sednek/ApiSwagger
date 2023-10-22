@@ -1,10 +1,12 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -18,7 +20,7 @@ public class StudentController {
 
     //CRUD
     @GetMapping
-    public Map<Long, Student> getAllStudents(){
+    public List<Student> getAllStudents(){
         return studentService.getAllStudents();
     }
 
@@ -38,12 +40,13 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public Student deleteStudent(@PathVariable long id) {
-        return studentService.deleteStudent(id);
+    public ResponseEntity deleteStudent(@PathVariable long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     @GetMapping("filter/{age}")
-    public Map<Long, Student> getStudentsByAge(@PathVariable int age){
+    public List<Student> getStudentsByAge(@PathVariable int age){
         return studentService.getStudentsByAge(age);
     }
 }

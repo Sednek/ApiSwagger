@@ -2,45 +2,43 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
 public class FacultyService {
 
-    private final Map<Long, Faculty> faculties = new HashMap<>();
-    private long id = 0L;
+    private final FacultyRepository facultyRepository;
+
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
 
     //CRUD
     public Faculty createFaculty(Faculty faculty) {
-        this.faculties.put(id++, faculty);
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
     public Faculty readFaculty(long id) {
-        return this.faculties.get(id);
+        return facultyRepository.findById(id).get();
     }
 
     public Faculty updateFaculty(Faculty faculty) {
-        this.faculties.put(faculty.getId(), faculty);
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
-    public Faculty deleteFaculty(long id) {
-        return this.faculties.remove(id);
+    public void deleteFaculty(long id) {
+        facultyRepository.deleteById(id);
     }
 
-    public Map<Long, Faculty> getAllFaculties(){
-        return this.faculties;
+    public List<Faculty> getAllFaculties(){
+        return facultyRepository.findAll();
     }
 
-    public Map<Long, Faculty> getFacultiesByColor(String color){
-        Map<Long, Faculty> resp = new HashMap<>();
-        faculties.entrySet()
-                .stream().
-                filter(entry -> entry.getValue().getColor().equals(color))
-                .forEach(entry -> resp.put(entry.getKey(), entry.getValue()));
-        return resp;
+    public List<Faculty> getFacultiesByColor(String color){
+        return facultyRepository.findAll()
+                .stream()
+                .filter(student -> student.getColor().equals(color)).toList();
     }
 }

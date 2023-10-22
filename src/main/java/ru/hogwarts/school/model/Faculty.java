@@ -1,17 +1,27 @@
 package ru.hogwarts.school.model;
 
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @EqualsAndHashCode
+@AllArgsConstructor
 @ToString
+@Entity
 public class Faculty {
 
-    private Long id;
+    @Id
+    @GeneratedValue
+    private long id;
+
     private String name;
     private String color;
 
+    public Faculty() {
+
+    }
 }
