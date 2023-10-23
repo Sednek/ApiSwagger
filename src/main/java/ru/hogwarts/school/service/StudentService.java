@@ -42,4 +42,8 @@ public class StudentService {
                 .stream()
                 .filter(student -> student.getAge() == age).toList();
     }
+
+    public List<Student> getStudentBetweenAge(int ageMin, int ageMax){
+        return studentRepository.findAllStudentByAgeBetween(ageMin, ageMax);
+    }
 }
