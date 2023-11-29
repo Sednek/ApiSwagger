@@ -36,12 +36,6 @@ public class FacultyService {
         return facultyRepository.findAll();
     }
 
-    public List<Faculty> getFacultiesByColor(String color){
-        return facultyRepository.findAll()
-                .stream()
-                .filter(student -> student.getColor().equals(color)).toList();
-    }
-
     public List<Faculty> getFacultiesByColorOrName(String color, String name){
         return facultyRepository.findAllByColorIgnoreCaseOrNameIgnoreCase(color, name);
     }
