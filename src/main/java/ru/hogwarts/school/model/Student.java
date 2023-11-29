@@ -6,7 +6,7 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Entity
@@ -22,8 +22,4 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
-
-    public Student() {
-
-    }
 }
